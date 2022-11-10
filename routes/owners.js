@@ -6,10 +6,10 @@ const router = express.Router();
 
 //Fetching all asset owners twitter profile by uid
 router.post("/", async function (req, res, next) {
-    //const uid = req.body.uid;
+    const uid = req.body.uid;
     const appClient = new Client(process.env.BEARER_TOKEN);
     try {
-        const response = await appClient.users.findUserById("212510251", {
+        const response = await appClient.users.findUserById(uid, {
             "user.fields": [
                 "profile_image_url",
                 "username",
