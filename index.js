@@ -2,8 +2,9 @@ import { createServer } from "http";
 import express, { json, urlencoded } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import { TwitterApi } from 'twitter-api-v2';
 import dotenv from "dotenv";
+import indexRouter from "./routes/index.js";
+import ownersRouter from "./routes/owners.js";
 dotenv.config();
 
 const app = express();
@@ -19,29 +20,26 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+app.use("/", indexRouter);
+app.use("/owners", ownersRouter);
 
 
-
-app.post("/tweet", async function (req, res) {
-
-    const client = new TwitterApi({
-        appKey: "tNiOSOq63kLkLecGeDMQ90Knu",
-        appSecret: "5xyZUZtnqbSNoVuD1b1GxYW0p6hDhQkn3HQZoqYvEUx01z61XE",
-        accessToken: req.body.accessToken,
-        accessSecret: req.body.accessSecret,
-    });
-
-
-    const text = req.body.text
-
-    try {
-        const response = await client.v1.tweet(text);
-        console.log("response", JSON.stringify(response, null, 2));
-        res.send(response);
-    } catch (error) {
-        console.log("tweets error", error);
-    }
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    next(createError(404));
 });
+
+// error handler
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get("env") === "development" ? err : {};
+
+    // render the error page
+    res.status(err.status || 500);
+    res.json("error");
+});
+
 
 export default app;
 
