@@ -12,7 +12,7 @@ This is a serverside implementation that handles tweeting of new NFT photos from
 
 - **Tweet new NFT photos** - automatically
 
-### [Demo Video](https://youtu.be/rZywcRB9Q6k)
+### [Demo Video]()
 
 ## Testing
 
