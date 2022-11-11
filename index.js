@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import indexRouter from "./routes/index.js";
 import ownersRouter from "./routes/owners.js";
+import cidRouter from "./routes/cid.js";
 dotenv.config();
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(cors(corsOptions));
 
 app.use("/", indexRouter);
 app.use("/owners", ownersRouter);
+app.use("/cid", cidRouter);
 
 
 // catch 404 and forward to error handler
@@ -48,5 +50,5 @@ const port = process.env.PORT || 4040;
 const server = createServer(app);
 
 server.listen(port, () => {
-    console.log(`Listening to twitter on ${port}`);
+    console.log(`Listening to snapmemo-node on ${port}`);
 });
