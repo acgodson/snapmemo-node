@@ -1,18 +1,20 @@
-                      ![welcome](logo.png)
+![welcome](/shots/logo.png)
 
 ## Snapmemo allows users to save, share and keep track of memorable photos as digital assets on blockchain
 
-This is a serverside implementation that handles tweeting of new NFT photos from authorized profile/asset creator.
+[See frontend repo](https://github.com/acgodson/snapmemo-frontend.git)
 
-# One click for everything
+This is a serverside implementation that handles tweeting of new NFT photos from authorized creators as soon as they are published on web3.storage and algorand blockchain.
 
-- **Store Photos and metadata** - on ipfs decentralized storage system (using web3.storage)
+## One click for everything
 
-- **Create digital Assets** - of saved photos (on algorand blockchain)
+- **Store Photos and metadata** - on ipfs decentralized storage system via web3.storage
+
+- **Create digital Assets** - of saved photos on blockchain
 
 - **Tweet new NFT photos** - automatically
 
-### [Demo Video]()
+### [Video Snippet](https://youtu.be/Fj3YkRPjcqo)
 
 ## Testing
 
@@ -24,14 +26,42 @@ To run server locally - Run `npm install` and `npm run start:dev` and you're rea
 
 - Clone the [Front-end Repository](https://github.com/acgodson/snapmemo-frontend.git) to authenticate send requests to localhost:4040
 
+Converting web3Storage CIDv1 to 32 bytes string to fit ASA standard (Algorand asset standard)
+
+```
+import CID from 'cids';
+
+
+   function hexToBase64(hexStr) {
+        let base64 = "";
+        for (let i = 0; i < hexStr.length; i++) {
+            base64 += !((i - 1) & 1)
+                ? String.fromCharCode(parseInt(hexStr.substring(i - 1, i + 1), 16))
+                : "";
+        }
+        return btoa(base64);
+
+ const hex = new CID(cid).toString('base16').substring(9)
+
+        let base64 = hexToBase64(hex);
+
+        const buffer = Buffer.from(base64, "base64");
+        const response = JSON.stringify({
+            base64: base64,
+            hex: hex,
+            buffer: buffer.length
+        });
+
+```
+
 ## Links
 
+- [IPFS Hosting](https://tiny-sea-0572.on.fleek.co/)
 - [Front-end Repository](https://github.com/acgodson/snapmemo-frontend.git)
-- [Design Journey (FIGMA)]()
-- [Video]()
-- [Youtube]()
+- [Design Journey (FIGMA)](https://www.figma.com/file/a5chpSSuMAAb6KST39mt4y/SNAPMEMO-UI?node-id=2%3A2)
+- [Youtube](https://youtu.be/Fj3YkRPjcqo)
 
 ## Contributors
 
-- @cgold54
-- @AC_godson
+@cgold54
+@AC_godson
